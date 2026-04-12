@@ -53,10 +53,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB8ulGXOVGI4wp5aA7j5UK8aXCb3sDAwuM',
-    appId: '1:693459010304:android:3caa71a71c60fe370ce9e5',
-    messagingSenderId: '693459010304',
-    projectId: 'sigap-firebase-core',
-    storageBucket: 'sigap-firebase-core.firebasestorage.app',
+    apiKey: 'AIzaSyBP19DmPBJzmbdTn87QBEv78MqBSwYHG2E',
+    appId: '1:543483412136:android:3880cf3492dffdac0d0c9d',
+    messagingSenderId: '543483412136',
+    projectId: 'sigap-firebase-core-c8144',
+    storageBucket: 'sigap-firebase-core-c8144.firebasestorage.app',
   );
+
 }
