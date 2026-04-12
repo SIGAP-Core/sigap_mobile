@@ -15,7 +15,11 @@ Fitur utama:
 
 ---
 
-## 🛠️ Instalasi & Setup Lingkungan
+## 📦 Rilis APK
+
+[Download APK v0.0.1](https://github.com/SIGAP-Core/sigap_mobile/releases)
+
+## 🛠️ Instalasi & Setup Environment
 
 Ikuti langkah-langkah berikut untuk menjalankan proyek di komputer lokal Anda:
 
