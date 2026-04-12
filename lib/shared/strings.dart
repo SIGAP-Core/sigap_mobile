@@ -1,0 +1,1 @@
+const deepLinkFormat = "sigapcore://auth?payload=";
