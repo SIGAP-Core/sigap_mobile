@@ -17,7 +17,7 @@ Fitur utama:
 
 ## 📦 Rilis APK
 
-[Download APK v0.0.1](https://github.com/SIGAP-Core/sigap_mobile/releases)
+[Download APK v0.0.2](https://github.com/SIGAP-Core/sigap_mobile/releases)
 
 ## 🛠️ Instalasi & Setup Environment
 
