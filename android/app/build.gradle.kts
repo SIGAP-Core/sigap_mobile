@@ -38,6 +38,15 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+
+            resValue("string", "app_name", "SIGAP Mobile")
+        }
+        debug {
+            // Ini akan mengubah package name menjadi: com.pbl.sigap_mobile.debug
+            applicationIdSuffix = ".debug"
+
+            // Nama aplikasi di HP untuk versi Debug
+            resValue("string", "app_name", "SIGAP Debug")
         }
     }
 }
