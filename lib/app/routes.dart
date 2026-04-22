@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:sigap_mobile/features/auth/data/auth_repository.dart';
 import 'package:sigap_mobile/features/auth/login_screen.dart';
 import 'package:sigap_mobile/features/auth/provider/auth_screen_provider.dart';
+import 'package:sigap_mobile/features/dashboard/dashboard_screen.dart';
+import 'package:sigap_mobile/features/dashboard/provider/dashboard_sheet_provider.dart';
 import 'package:sigap_mobile/features/qr/provider/qr_screen_provider.dart';
 import 'package:sigap_mobile/features/qr/qr_scanner_screen.dart';
 
@@ -28,7 +30,7 @@ GoRouter routes = GoRouter(
     }
 
     if (isLoggingIn) {
-      return "/scan";
+      return "/";
     }
 
     return null;
@@ -44,12 +46,22 @@ GoRouter routes = GoRouter(
       ),
     ),
     GoRoute(
-      name: "qr_scan_screen",
-      path: "/scan",
+      name: "dashboard",
+      path: "/",
       builder: (_, _) => ChangeNotifierProvider(
-        create: (_) => QrScreenProvider(),
-        builder: (_, _) => QrScannerScreen(),
+        create: (_) => DashboardSheetProvider(),
+        builder: (_, _) => DashboardScreen(),
       ),
+      routes: [
+        GoRoute(
+          name: "qr_scan_screen",
+          path: "scan",
+          builder: (_, _) => ChangeNotifierProvider(
+            create: (_) => QrScreenProvider(),
+            builder: (_, _) => QrScannerScreen(),
+          ),
+        ),
+      ],
     ),
   ],
 );
