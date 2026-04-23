@@ -5,10 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:sigap_mobile/features/auth/data/auth_repository.dart';
 import 'package:sigap_mobile/features/auth/login_screen.dart';
 import 'package:sigap_mobile/features/auth/provider/auth_screen_provider.dart';
+import 'package:sigap_mobile/features/profile/profile_screen.dart';
+import 'package:sigap_mobile/shared/widget/app_drawer_wrapper.dart';
 import 'package:sigap_mobile/features/dashboard/dashboard_screen.dart';
 import 'package:sigap_mobile/features/dashboard/provider/dashboard_sheet_provider.dart';
+import 'package:sigap_mobile/app/provider/drawer_provider.dart';
 import 'package:sigap_mobile/features/qr/provider/qr_screen_provider.dart';
 import 'package:sigap_mobile/features/qr/qr_scanner_screen.dart';
+import 'package:sigap_mobile/shared/widget/custom_transition.dart';
 
 class RouterNotifier extends ChangeNotifier {
   RouterNotifier() {
@@ -40,26 +44,53 @@ GoRouter routes = GoRouter(
     GoRoute(
       name: "login_screen",
       path: "/login",
-      builder: (_, _) => ChangeNotifierProvider(
-        create: (_) => AuthScreenProvider(),
-        builder: (_, _) => LoginScreen(),
+      pageBuilder: (_, state) => CustomTransition.none(
+        state: state,
+        child: ChangeNotifierProvider(
+          create: (_) => AuthScreenProvider(),
+          builder: (_, _) => LoginScreen(),
+        ),
       ),
     ),
-    GoRoute(
-      name: "dashboard",
-      path: "/",
-      builder: (_, _) => ChangeNotifierProvider(
-        create: (_) => DashboardSheetProvider(),
-        builder: (_, _) => DashboardScreen(),
-      ),
+    ShellRoute(
+      builder: (_, _, child) {
+        return ChangeNotifierProvider(
+          create: (_) => DrawerProvider(),
+          child: AppDrawerWrapper(child: child),
+        );
+      },
       routes: [
         GoRoute(
-          name: "qr_scan_screen",
-          path: "scan",
-          builder: (_, _) => ChangeNotifierProvider(
-            create: (_) => QrScreenProvider(),
-            builder: (_, _) => QrScannerScreen(),
+          name: "dashboard",
+          path: "/",
+          pageBuilder: (_, state) => CustomTransition.none(
+            state: state,
+            child: ChangeNotifierProvider(
+              create: (_) => DashboardSheetProvider(),
+              builder: (_, _) => DashboardScreen(),
+            ),
           ),
+          routes: [
+            GoRoute(
+              name: "qr_scan_screen",
+              path: "scan",
+              pageBuilder: (context, state) => CustomTransition.slideFade(
+                context: context,
+                state: state,
+                child: ChangeNotifierProvider(
+                  create: (_) => QrScreenProvider(),
+                  builder: (_, _) => QrScannerScreen(),
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        GoRoute(
+          name: "profile_screen",
+          path: "/profile",
+          pageBuilder: (_, state) =>
+              CustomTransition.none(state: state, child: ProfileScreen()),
         ),
       ],
     ),

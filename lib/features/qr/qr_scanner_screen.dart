@@ -8,7 +8,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:sigap_mobile/features/qr/data/gate_repository.dart';
 import 'package:sigap_mobile/features/qr/provider/qr_screen_provider.dart';
-import 'package:sigap_mobile/shared/strings.dart';
+import 'package:sigap_mobile/shared/values/strings.dart';
 
 class QrScannerScreen extends StatefulWidget {
   const QrScannerScreen({super.key});
