@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sigap_mobile/features/auth/data/auth_repository.dart';
+import 'package:sigap_mobile/features/auth/provider/driver_provider.dart';
 import 'package:sigap_mobile/features/dashboard/provider/dashboard_sheet_provider.dart';
 import 'package:sigap_mobile/app/provider/drawer_provider.dart';
 
@@ -82,6 +83,8 @@ class DashboardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final driver = context.watch<DriverProvider>().driver;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -122,8 +125,8 @@ class DashboardHeader extends StatelessWidget {
                 style: TextStyle(color: const Color(0xFF94A3B8), fontSize: 14),
               ),
               const SizedBox(height: 4),
-              const Text(
-                "Budi Santoso",
+              Text(
+                driver?.name ?? "...",
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: Colors.white,
@@ -145,6 +148,8 @@ class DigitalCardDriverLicense extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final driver = context.watch<DriverProvider>().driver;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(24),
@@ -173,8 +178,8 @@ class DigitalCardDriverLicense extends StatelessWidget {
             style: TextStyle(color: Colors.white70, fontSize: 12),
           ),
           const SizedBox(height: 4),
-          const Text(
-            "N 1234 ABC",
+          Text(
+            driver?.license ?? "X XXXX XXX",
             style: TextStyle(
               color: Colors.white,
               fontSize: 28,

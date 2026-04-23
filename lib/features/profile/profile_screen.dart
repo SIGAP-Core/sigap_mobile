@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sigap_mobile/app/provider/drawer_provider.dart';
+import 'package:sigap_mobile/features/auth/provider/driver_provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final driver = context.watch<DriverProvider>().driver;
+
     return SafeArea(
       top: false,
       left: false,
@@ -29,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
                     overscroll.disallowIndicator();
                     return false;
                   },
-                  child: const SingleChildScrollView(
+                  child: SingleChildScrollView(
                     padding: EdgeInsets.only(top: 24),
                     physics: ClampingScrollPhysics(),
                     child: Padding(
@@ -38,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           // Avatar
                           ProfileAvatar(),
-                          SizedBox(height: 32),
+                          const SizedBox(height: 32),
 
                           // Informasi Data Diri
                           InfoSection(
@@ -47,12 +50,12 @@ class ProfileScreen extends StatelessWidget {
                               InfoTile(
                                 icon: Icons.person_outline,
                                 label: "Nama Lengkap",
-                                value: "Budi Santoso",
+                                value: driver?.name ?? "...",
                               ),
                               InfoTile(
                                 icon: Icons.email_outlined,
                                 label: "Email",
-                                value: "driver@sigap.com",
+                                value: driver?.email ?? "xxxxxx@xxxx.xxx",
                               ),
                               // InfoTile(
                               //   icon: Icons.phone_outlined,
@@ -61,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                               // ),
                             ],
                           ),
-                          SizedBox(height: 24),
+                          const SizedBox(height: 24),
 
                           // Informasi Kendaraan
                           InfoSection(
@@ -70,22 +73,22 @@ class ProfileScreen extends StatelessWidget {
                               InfoTile(
                                 icon: Icons.directions_car_outlined,
                                 label: "Plat Nomor",
-                                value: "N 1234 ABC",
+                                value: driver?.license ?? "X XXXX XXX",
                                 isAccent: true,
                               ),
                               InfoTile(
                                 icon: Icons.badge_outlined,
                                 label: "Status Driver",
-                                value: "Active",
+                                value: driver?.status ?? "...",
                                 isVerified: true,
                               ),
                             ],
                           ),
-                          SizedBox(height: 24),
+                          const SizedBox(height: 24),
 
                           // Pengaturan Keamanan (Ganti Password)
-                          SecuritySection(),
-                          SizedBox(height: 20),
+                          const SecuritySection(),
+                          const SizedBox(height: 20),
                         ],
                       ),
                     ),
@@ -363,7 +366,7 @@ class SecuritySection extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           "Perbarui kata sandi secara berkala",
                           style: TextStyle(

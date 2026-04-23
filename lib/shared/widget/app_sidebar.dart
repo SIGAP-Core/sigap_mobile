@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sigap_mobile/features/auth/data/auth_repository.dart';
 import 'package:sigap_mobile/app/provider/drawer_provider.dart';
+import 'package:sigap_mobile/features/auth/provider/driver_provider.dart';
 
 class AppSidebar extends StatelessWidget {
   const AppSidebar({super.key});
@@ -15,6 +16,7 @@ class AppSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String currentPath = GoRouterState.of(context).uri.path;
+    final driver = context.watch<DriverProvider>().driver;
 
     return Container(
       width: 280,
@@ -32,8 +34,8 @@ class AppSidebar extends StatelessWidget {
               child: Icon(Icons.person, size: 32, color: Colors.white),
             ),
             const SizedBox(height: 16),
-            const Text(
-              "Budi Santoso",
+            Text(
+              driver?.name ?? "...",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -42,7 +44,7 @@ class AppSidebar extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              "driver@sigap.com",
+              driver?.email ?? "xxxxxx@xxx.xxx",
               style: TextStyle(color: const Color(0xFF94A3B8), fontSize: 14),
             ),
             const SizedBox(height: 48),

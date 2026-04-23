@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sigap_mobile/features/auth/data/auth_repository.dart';
+import 'package:sigap_mobile/features/auth/models/driver_model.dart';
 import 'package:sigap_mobile/features/auth/provider/auth_screen_provider.dart';
+import 'package:sigap_mobile/features/auth/provider/driver_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -212,16 +214,38 @@ class LoginButton extends StatelessWidget {
 
     try {
       // Mencoba login ke Firebase
-      await authRepository.login(
+      if (emailController.text.trim().isEmpty ||
+          passwordController.text.trim().isEmpty) {
+        throw Exception("Email atau password tidak boleh kosong.");
+      }
+
+      DriverModel driverData = await authRepository.login(
         emailController.text.trim(),
         passwordController.text.trim(),
       );
-    } on FirebaseAuthException catch (e) {
-      // Tampilkan error jika password salah/email tidak ditemukan
+
       if (!context.mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.message ?? 'Gagal login!')));
+      context.read<DriverProvider>().setDriver(driverData);
+    } on FirebaseAuthException catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            e.message ?? 'Gagal melakukan login!',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Color(0xFF950606),
+        ),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      String errorMessage = e.toString().replaceAll("Exception: ", "");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage, style: TextStyle(color: Colors.white)),
+          backgroundColor: Color(0xFF950606),
+        ),
+      );
     } finally {
       authScreenProvider.setLoadingState(false);
     }
