@@ -1,10 +1,12 @@
 class DriverModel {
+  final String uid;
   final String email;
   final String license;
   final String name;
   final String status;
 
   DriverModel({
+    required this.uid,
     required this.email,
     required this.license,
     required this.name,
@@ -13,6 +15,7 @@ class DriverModel {
 
   factory DriverModel.fromMap(Map<String, dynamic> map) {
     return DriverModel(
+      uid: map['uid'],
       email: map['email'] ?? '',
       license: map['license'] ?? '',
       name: map['name'] ?? '',

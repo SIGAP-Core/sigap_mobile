@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sigap_mobile/features/auth/data/auth_repository.dart';
 import 'package:sigap_mobile/features/auth/login_screen.dart';
 import 'package:sigap_mobile/features/auth/provider/auth_screen_provider.dart';
 import 'package:sigap_mobile/features/auth/provider/driver_provider.dart';
+import 'package:sigap_mobile/features/dashboard/bloc/access_logs_bloc.dart';
 import 'package:sigap_mobile/features/profile/profile_screen.dart';
 import 'package:sigap_mobile/shared/widget/app_drawer_wrapper.dart';
 import 'package:sigap_mobile/features/dashboard/dashboard_screen.dart';
@@ -84,9 +86,12 @@ GoRouter createRouter({
             path: "/",
             pageBuilder: (_, state) => CustomTransition.none(
               state: state,
-              child: ChangeNotifierProvider(
-                create: (_) => DashboardSheetProvider(),
-                builder: (_, _) => DashboardScreen(),
+              child: MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(create: (_) => DashboardSheetProvider()),
+                  BlocProvider(create: (_) => AccessLogsBloc()),
+                ],
+                child: const DashboardScreen(),
               ),
             ),
             routes: [

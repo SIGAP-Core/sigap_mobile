@@ -37,6 +37,7 @@ class AuthRepository {
       }
 
       final data = querySnapshot.docs.first.data() as Map<String, dynamic>;
+      data['uid'] = credential.user!.uid;
       DriverModel driver = DriverModel.fromMap(data);
 
       if (driver.status != 'active') {
@@ -59,9 +60,10 @@ class AuthRepository {
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        return DriverModel.fromMap(
-          querySnapshot.docs.first.data() as Map<String, dynamic>,
-        );
+        final driverMap =
+            querySnapshot.docs.first.data() as Map<String, dynamic>;
+        driverMap['uid'] = querySnapshot.docs.first.id;
+        return DriverModel.fromMap(driverMap);
       }
       return null;
     } catch (e) {
