@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sigap_mobile/app/provider/drawer_provider.dart';
 import 'package:sigap_mobile/features/auth/provider/driver_provider.dart';
+import 'package:sigap_mobile/shared/widget/change_password_dialog.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -328,8 +329,11 @@ class SecuritySection extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: () {
-              // TODO: Arahkan ke halaman ganti password / tampilkan bottom sheet
-              debugPrint("Navigasi ke Ganti Password");
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => const ChangePasswordDialog(),
+              );
             },
             borderRadius: BorderRadius.circular(20),
             child: Container(
