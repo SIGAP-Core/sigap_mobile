@@ -25,7 +25,7 @@ class AuthRepository {
           .signInWithEmailAndPassword(email: email, password: password);
 
       QuerySnapshot querySnapshot = await _firestore
-          .collection('user')
+          .collection('driver')
           .where('email', isEqualTo: credential.user!.email)
           .limit(1)
           .get();
@@ -99,7 +99,7 @@ class AuthRepository {
   Future<DriverModel?> getDriverData(String email) async {
     try {
       QuerySnapshot querySnapshot = await _firestore
-          .collection('user')
+          .collection('driver')
           .where('email', isEqualTo: email)
           .limit(1)
           .get();

@@ -26,7 +26,7 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek di komputer lokal Anda:
 ### 1. Kloning Repositori & Ambil Dependensi
 
 ```bash
-git clone [https://github.com/SIGAP-Core/sigap_mobile.git](https://github.com/SIGAP-Core/sigap_mobile.git)
+git clone https://github.com/SIGAP-Core/sigap_mobile.git
 cd sigap_mobile
 flutter pub get
 ```
